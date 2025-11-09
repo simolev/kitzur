@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Kitzur Shulchan Aruch",
+    "slug": "kitzur-shulchan-aruch",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#2c3e50"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kitzur.shulchanaruch"
+    },
+    "android": {
+      "package": "com.kitzur.shulchanaruch"
+    }
+  }
+}

@@ -1,0 +1,380 @@
+[
+  {
+    "rule_name": "drop_unknown",
+    "selectors": [
+      {
+        "dimension": "Service",
+        "match": "UnknownService"
+      }
+    ],
+    "action": "drop"
+  },
+  {
+    "rule_name": "replace_rsc_home",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /?*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_article",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /news*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /news"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_video",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /video*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /video"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_gallery",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /gallery*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /gallery"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_poll",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /sondaggio*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /sondaggio"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_blog",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /articolo_blog*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /articolo_blog"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_tag",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /tag*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /tag"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_rsc_search",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "RSC GET /search*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "RSC GET /search"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_article",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /news*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /news"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_video",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /video*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /video"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_gallery",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /gallery*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /gallery"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_poll",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /sondaggio*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /sondaggio"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_blog",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /articolo_blog*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /articolo_blog"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_tag",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /tag*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /tag"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_search",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /search*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /search"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_article",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /news*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /news"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_video",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /video*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /video"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_gallery",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /gallery*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /gallery"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_poll",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /sondaggio*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /sondaggio"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_blog",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /articolo_blog*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /articolo_blog"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_tag",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /tag*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /tag"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_head_search",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "HEAD /search*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "HEAD /search"
+      }
+    ],
+    "action": "replace"
+  },
+  {
+    "rule_name": "replace_invalidate_cache",
+    "selectors": [
+      {
+        "dimension": "Operation",
+        "match": "POST /api*"
+      }
+    ],
+    "replacements": [
+      {
+        "target_dimension": "Operation",
+        "value": "POST /api"
+      }
+    ],
+    "action": "replace"
+  }
+]
