@@ -2,7 +2,7 @@
   "expo": {
     "name": "Kitzur Shulchan Aruch",
     "slug": "kitzur-shulchan-aruch",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "splash": {
@@ -10,10 +10,11 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kitzur.shulchanaruch"
+      "bundleIdentifier": "it.levy.libri.kitzur"
     },
     "android": {
-      "package": "com.kitzur.shulchanaruch"
+      "package": "it.levy.libri.kitzur",
+      "versionCode": 1
     }
   }
 }
