@@ -39,22 +39,18 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > mobileapps.keystore
 
-      - name: Build Android AAB (unsigned)
-        run: |
-          npx expo prebuild --platform android
-          cd android
-          ./gradlew bundleRelease
-
-      - name: Sign AAB
+      - name: Build and Sign Android AAB
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
         run: |
-          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
-            -keystore mobileapps.keystore \
-            -storepass $KEYSTORE_PASSWORD \
-            android/app/build/outputs/bundle/release/app-release.aab \
-            $KEYSTORE_ALIAS
+          npx expo prebuild --platform android
+          cd android
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=../mobileapps.keystore \
+            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$KEYSTORE_ALIAS \
+            -Pandroid.injected.signing.key.password=$KEYSTORE_PASSWORD
 
       - name: Verify signature
         run: |
