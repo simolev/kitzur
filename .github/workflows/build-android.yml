@@ -51,28 +51,32 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
         run: |
-          cat >> android/gradle.properties << EOF
-          MYAPP_UPLOAD_STORE_FILE=../mobileapps.keystore
-          MYAPP_UPLOAD_KEY_ALIAS=$KEYSTORE_ALIAS
-          MYAPP_UPLOAD_STORE_PASSWORD=$KEYSTORE_PASSWORD
-          MYAPP_UPLOAD_KEY_PASSWORD=$KEYSTORE_PASSWORD
+          # Create signing config file
+          cat > android/app/signing.gradle << 'EOF'
+          android {
+              signingConfigs {
+                  release {
+                      storeFile file('../../mobileapps.keystore')
+                      storePassword System.getenv("KEYSTORE_PASSWORD")
+                      keyAlias System.getenv("KEYSTORE_ALIAS")
+                      keyPassword System.getenv("KEYSTORE_PASSWORD")
+                  }
+              }
+              buildTypes {
+                  release {
+                      signingConfig signingConfigs.release
+                  }
+              }
+          }
           EOF
           
-          # Add signing config to app/build.gradle
-          sed -i '/signingConfigs {/,/}/d' android/app/build.gradle
-          sed -i '/android {/a\
-              signingConfigs {\
-                  release {\
-                      storeFile file(MYAPP_UPLOAD_STORE_FILE)\
-                      storePassword MYAPP_UPLOAD_STORE_PASSWORD\
-                      keyAlias MYAPP_UPLOAD_KEY_ALIAS\
-                      keyPassword MYAPP_UPLOAD_KEY_PASSWORD\
-                  }\
-              }' android/app/build.gradle
-          
-          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.release/' android/app/build.gradle
+          # Apply the signing config
+          echo "apply from: './signing.gradle'" >> android/app/build.gradle
 
       - name: Build signed AAB
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
         run: |
           cd android
           ./gradlew bundleRelease --no-daemon
