@@ -13,8 +13,7 @@
       "bundleIdentifier": "it.levy.libri.kitzur"
     },
     "android": {
-      "package": "it.levy.libri.kitzur",
-      "versionCode": 1
+      "package": "it.levy.libri.kitzur"
     }
   }
 }

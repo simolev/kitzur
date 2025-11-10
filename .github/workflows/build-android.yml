@@ -25,17 +25,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Expo
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-
       - name: Install dependencies
         run: npm ci
 
       - name: Decode keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > mobileapps.keystore
+
+      - name: Auto-generate versionCode
+        run: |
+          # Extract version from app.json (e.g., "1.2.3")
+          VERSION=$(node -p "require('./app.json').expo.version")
+          # Convert to versionCode: 1.2.3 -> 10203
+          VERSION_CODE=$(echo $VERSION | awk -F. '{printf "%d%02d%02d", $1, $2, $3}')
+          echo "Version: $VERSION -> versionCode: $VERSION_CODE"
+          
+          # Update app.json with versionCode
+          node -e "const fs=require('fs'); const app=require('./app.json'); app.expo.android.versionCode=parseInt('$VERSION_CODE'); fs.writeFileSync('app.json', JSON.stringify(app, null, 2));"
 
       - name: Prebuild Android
         env:
