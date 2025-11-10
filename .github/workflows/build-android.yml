@@ -39,18 +39,43 @@ jobs:
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > mobileapps.keystore
 
-      - name: Build and Sign Android AAB
+      - name: Prebuild Android
+        env:
+          EXPO_NO_TELEMETRY: 1
+          CI: 1
+        run: |
+          npx expo prebuild --platform android --clean
+
+      - name: Configure signing
         env:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
         run: |
-          npx expo prebuild --platform android
+          cat >> android/gradle.properties << EOF
+          MYAPP_UPLOAD_STORE_FILE=../mobileapps.keystore
+          MYAPP_UPLOAD_KEY_ALIAS=$KEYSTORE_ALIAS
+          MYAPP_UPLOAD_STORE_PASSWORD=$KEYSTORE_PASSWORD
+          MYAPP_UPLOAD_KEY_PASSWORD=$KEYSTORE_PASSWORD
+          EOF
+          
+          # Add signing config to app/build.gradle
+          sed -i '/signingConfigs {/,/}/d' android/app/build.gradle
+          sed -i '/android {/a\
+              signingConfigs {\
+                  release {\
+                      storeFile file(MYAPP_UPLOAD_STORE_FILE)\
+                      storePassword MYAPP_UPLOAD_STORE_PASSWORD\
+                      keyAlias MYAPP_UPLOAD_KEY_ALIAS\
+                      keyPassword MYAPP_UPLOAD_KEY_PASSWORD\
+                  }\
+              }' android/app/build.gradle
+          
+          sed -i 's/signingConfig signingConfigs.debug/signingConfig signingConfigs.release/' android/app/build.gradle
+
+      - name: Build signed AAB
+        run: |
           cd android
-          ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=../mobileapps.keystore \
-            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
-            -Pandroid.injected.signing.key.alias=$KEYSTORE_ALIAS \
-            -Pandroid.injected.signing.key.password=$KEYSTORE_PASSWORD
+          ./gradlew bundleRelease --no-daemon
 
       - name: Verify signature
         run: |
